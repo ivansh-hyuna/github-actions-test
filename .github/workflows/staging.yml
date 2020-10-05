@@ -16,17 +16,18 @@ jobs:
             - uses: actions/checkout@v2
             - name: Clone repository
               run: echo "Cloning repository"
-            - name: Read .nvmrc
-              run: echo "##[set-output name=nvmrc;]$(cat .nvmrc)"
-              id: nvm
+#            - name: Read .nvmrc
+#              run: echo "##[set-output name=nvmrc;]$(cat .nvmrc)"
+#              id: nvm
 
-            - name: Echo repository value
-              run: echo ${{ github.repository }}
+#            - name: Echo repository value
+#              run: echo ${{ github.repository }}
 #
-#            - name: Setup Node
-#              uses: actions/setup-node@v1
-#              with:
+            - name: Setup Node
+              uses: actions/setup-node@v1
+              with:
 #                  node-version: ${{ steps.nvm.outputs.nvmrc }}
+                  node-version: ${{ cat .nvmrc }}
 #            - uses: actions/cache@v2
 #              with:
 #                  path: node_modules
