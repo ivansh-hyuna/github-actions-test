@@ -32,7 +32,7 @@ exports.config = {
     }
   }, {
     browserName: 'chrome',
-    browserVersion: 'latest',
+    browserVersion: '84',
     platformName: 'Windows 10',
     'sauce:options': {
       build: `Build ${BUILD_ID}`
