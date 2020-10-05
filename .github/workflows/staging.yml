@@ -32,7 +32,8 @@ jobs:
                   path: node_modules
                   key: ${{ runner.os }}-${{ hashFiles('package.json') }}
             - run: npm install
-            - run: npm test
+            - run: npm run test:unit
+            - run: npm run test:e2e
 
 #    build:
 #        name: Build Docker Image
