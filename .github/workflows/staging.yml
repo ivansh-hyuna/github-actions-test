@@ -42,7 +42,8 @@ jobs:
               # docker.pkg.github.com/${github.repository}/${github.repository#*/}
               run: |
                 echo "DOCKERHUB_IMAGE_NAME=TEST" >> $GITHUB_ENV
-                echo ${{ env.DOCKERHUB_IMAGE_NAME }}
+                echo "${{ env.DOCKERHUB_IMAGE_NAME }}"
+                echo "${{ DOCKERHUB_IMAGE_NAME }}"
 #              run: echo "DOCKERHUB_IMAGE_NAME=docker.pkg.github.com/${github.repository}/${github.repository#*/}" >> $GITHUB_ENV
 #                  echo ${{ env.DOCKERHUB_IMAGE_NAME }}
 #                  echo "::set-output name=IMAGE_NAME::${github.repository#*/}"
