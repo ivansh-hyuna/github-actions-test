@@ -1,0 +1,93 @@
+name: Staging Deploy
+
+on:
+    push:
+        branches:
+            - main
+#    release:
+#        types: [prereleased]
+
+
+jobs:
+    test:
+        name: Test
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - name: Clone repository
+              run: echo "Cloning repository"
+            - name: Read .nvmrc
+              run: echo "##[set-output name=nvmrc;]$(cat .nvmrc)"
+              id: nvm
+
+            - name: Echo repository value
+              run: echo "${{ GITHUB_REPOSITORY }}"
+#
+#            - name: Setup Node
+#              uses: actions/setup-node@v1
+#              with:
+#                  node-version: ${{ steps.nvm.outputs.nvmrc }}
+#            - uses: actions/cache@v2
+#              with:
+#                  path: node_modules
+#                  key: ${{ runner.os }}-${{ hashFiles('package.json') }}
+#            - run: npm install
+#            - run: npm test
+
+#    build:
+#        name: Build Docker Image
+#        runs-on: ubuntu-latest
+#        needs: test
+#        steps:
+#            - uses: actions/checkout@v2
+#            - uses: docker/build-push-action@v1
+#              with:
+#                  username: ${{ github.actor }}
+#                  password: ${{ github.token }}
+#                  registry: docker.pkg.github.com
+#                  repository: hyunainternational/hyuna_signup_process/signup_process
+#                  tag_with_ref: true
+#
+#    deploy:
+#        name: Deploy to ECS
+#        runs-on: ubuntu-latest
+#        needs: build
+#        steps:
+#            - run: echo ::set-env name=RELEASE_VERSION::${GITHUB_REF:10}
+#            - name: Configure AWS credentials
+#              uses: aws-actions/configure-aws-credentials@v1
+#              with:
+#                  aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#                  aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#                  aws-region: us-east-1
+#
+#            - name: Download task def
+#              run: |
+#                  aws ecs describe-task-definition --task-definition signup-process-staging --query taskDefinition > task-definition.json
+#
+#            - name: Fill in the new image ID in the Amazon ECS task definition
+#              id: task-def
+#              uses: aws-actions/amazon-ecs-render-task-definition@v1
+#              with:
+#                  task-definition: task-definition.json
+#                  container-name: signup-process-staging
+#                  image: 'docker.pkg.github.com/hyunainternational/hyuna_signup_process/signup_process:${{ env.RELEASE_VERSION }}'
+#
+#            - name: Deploy to Amazon ECS service
+#              uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+#              with:
+#                  task-definition: ${{ steps.task-def.outputs.task-definition }}
+#                  cluster: signup-process-staging
+#                  wait-for-service-stability: true
+#                  service: app
+#
+#    notify:
+#        name: Slack notify
+#        runs-on: ubuntu-latest
+#        needs: [test, build, deploy]
+#        if: always()
+#        steps:
+#            - uses: iRoachie/slack-github-actions@v2.0.0
+#              env:
+#                  SLACK_WEBHOOK_URL: ${{ secrets.SLACK_BUILDS_WEBHOOK_URL }}
+#                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
