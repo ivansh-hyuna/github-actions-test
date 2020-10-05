@@ -49,7 +49,12 @@ jobs:
             - name: Build and tag image
               env:
                   TYPE: build
-              run: docker build --build-arg type=${TYPE} -t "docker.pkg.github.com/${{github.repository}}/github-actions:latest" -f ./infrastructure/Dockerfile .
+              run: docker build --build-arg type=${TYPE} -t "github-actions:latest" -f ./infrastructure/Dockerfile .
+
+            - name: Publish image
+              env:
+                IMAGE_NAME: $GITHUB_REPOSITORY
+              run: docker push "docker.pkg.github.com/${{github.repository}}/github-actions:latest"
 
 
 #
