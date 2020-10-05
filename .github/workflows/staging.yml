@@ -37,11 +37,11 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             # Set global environment variables:
-            - name: set global env
-              id: global_env
-              run: |
-                  echo "::set-output name=IMAGE_NAME::${github.repository#*/}"
-                  echo "::set-output name=DOCKERHUB_IMAGE_NAME::docker.pkg.github.com/${github.repository}/${github.repository#*/}"
+#            - name: set global env
+#              id: global_env
+#              run: |
+#                  echo "::set-output name=IMAGE_NAME::${github.repository#*/}"
+#                  echo "::set-output name=DOCKERHUB_IMAGE_NAME::docker.pkg.github.com/${github.repository}/${github.repository#*/}"
 
             - uses: actions/checkout@v2
             - uses: docker/build-push-action@v1
@@ -49,7 +49,7 @@ jobs:
                   username: ${{ github.actor }}
                   password: ${{ github.token }}
                   registry: docker.pkg.github.com
-                  repository: ${GITHUB_REPOSITORY}/${GITHUB_REPOSITORY#*/}
+                  repository: ${GITHUB_REPOSITORY}/github-actions
                   tag_with_ref: true
 
 
