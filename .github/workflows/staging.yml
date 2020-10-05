@@ -27,12 +27,12 @@ jobs:
               uses: actions/setup-node@v1
               with:
                   node-version: ${{ steps.nvm.outputs.nvmrc }}
-#            - uses: actions/cache@v2
-#              with:
-#                  path: node_modules
-#                  key: ${{ runner.os }}-${{ hashFiles('package.json') }}
-#            - run: npm install
-#            - run: npm test
+            - uses: actions/cache@v2
+              with:
+                  path: node_modules
+                  key: ${{ runner.os }}-${{ hashFiles('package.json') }}
+            - run: npm install
+            - run: npm test
 
 #    build:
 #        name: Build Docker Image
