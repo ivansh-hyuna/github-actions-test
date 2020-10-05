@@ -47,7 +47,9 @@ jobs:
 
             - uses: actions/checkout@v2
             - name: Build and tag image
-              run: docker build -t "docker.pkg.github.com/${{github.repository}}/github-actions:latest" -t "docker.pkg.github.com/${{github.repository}}/github-actions:${GITHUB_SHA::8}" -f ./infrastructure/Dockerfile .
+              env:
+                  TYPE: build
+              run: docker build --build-arg type=${TYPE} -t "docker.pkg.github.com/${{github.repository}}/github-actions:latest" -f ./infrastructure/Dockerfile .
 
 
 #
