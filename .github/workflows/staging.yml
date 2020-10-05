@@ -37,24 +37,19 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             # Set global environment variables:
-            - name: set global env
-              id: global_env
+#            - name: set global env
+#              id: global_env
               # docker.pkg.github.com/${github.repository}/${github.repository#*/}
-              run: |
-                echo "DOCKERHUB_IMAGE_NAME=TEST" >> $GITHUB_ENV
-                echo "${{ env.DOCKERHUB_IMAGE_NAME }}"
-                echo "${{ DOCKERHUB_IMAGE_NAME }}"
 #              run: echo "DOCKERHUB_IMAGE_NAME=docker.pkg.github.com/${github.repository}/${github.repository#*/}" >> $GITHUB_ENV
 #                  echo ${{ env.DOCKERHUB_IMAGE_NAME }}
 #                  echo "::set-output name=IMAGE_NAME::${github.repository#*/}"
 #                  echo "::set-output name=DOCKERHUB_IMAGE_NAME::docker.pkg.github.com/${github.repository}/${github.repository#*/}"
 
-#            - uses: actions/checkout@v2
-            #     Build Docker image:
-#            - name: Build and tag image
-#                run: |
+            - uses: actions/checkout@v2
+            - name: Build and tag image
+                run: |
 #                    docker build -t ${NAME}:${VERSION} -f ./Dockerfile ../
-#                    docker build -t "${{ steps.global_env.outputs.DOCKERHUB_IMAGE_NAME }}:latest" -t "${{ steps.global_env.outputs.DOCKERHUB_IMAGE_NAME }}:${GITHUB_SHA::8}" .
+                    docker build -t "docker.pkg.github.com/${{github.repository}}/github-actions:latest" -t "docker.pkg.github.com/${{github.repository}}/github-actions:${GITHUB_SHA::8}" -f ./infrastructure/Dockerfile .
 
 
 #
