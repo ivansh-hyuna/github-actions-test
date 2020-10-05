@@ -39,9 +39,12 @@ jobs:
             # Set global environment variables:
             - name: set global env
               id: global_env
+              # docker.pkg.github.com/${github.repository}/${github.repository#*/}
               run: |
-                  echo "DOCKERHUB_IMAGE_NAME=docker.pkg.github.com/${github.repository}/${github.repository#*/}" >> $GITHUB_ENV
-                  echo ${{ env.DOCKERHUB_IMAGE_NAME }}
+                echo "DOCKERHUB_IMAGE_NAME=TEST" >> $GITHUB_ENV
+                echo ${{ env.DOCKERHUB_IMAGE_NAME }}
+#              run: echo "DOCKERHUB_IMAGE_NAME=docker.pkg.github.com/${github.repository}/${github.repository#*/}" >> $GITHUB_ENV
+#                  echo ${{ env.DOCKERHUB_IMAGE_NAME }}
 #                  echo "::set-output name=IMAGE_NAME::${github.repository#*/}"
 #                  echo "::set-output name=DOCKERHUB_IMAGE_NAME::docker.pkg.github.com/${github.repository}/${github.repository#*/}"
 
