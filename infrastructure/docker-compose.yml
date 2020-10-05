@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+    ma_client:
+        image: ${NAME}:${VERSION}
+#            build:
+#              context: ../
+#              dockerfile: ./infrastructure/Dockerfile
+#        tty: true
+        network_mode: 'host'
+#        ports:
+#            - ${PORT}:${PORT}
+        environment:
+            - PORT=${PORT}
+            - API_PORT=${API_PORT}
+        volumes:
+#            - ./config/nginx.conf:/etc/nginx/nginx.conf
+#            - ./config/gateway:/etc/nginx/conf.d/gateway
+            - ./config/gateway:/etc/nginx/conf.d/gateway
+            - ./config/entrypoint.sh:/entrypoint.sh
+#        command: /bin/bash -c "/entrypoint.sh"
+        command: /bin/sh "/entrypoint.sh"
